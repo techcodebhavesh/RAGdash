@@ -1,0 +1,14 @@
+pandas
+transformers
+torch
+scikit-learn
+matplotlib
+plotly
+dash
+dash-bootstrap-components
+networkx
+pydantic
+torch
+sentence-transformers
+transformers
+faiss-cpu
