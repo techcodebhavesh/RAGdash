@@ -21,6 +21,8 @@ config = {
     'db_name': os.getenv('DB_NAME')
 }
 
+print(config)
+
 rd = MyRAGdash(config=config)
 
 rd.connect_to_mysql(host=config['db_host'], dbname=config['db_name'], user=config['db_user'], password=config['db_password'], port=3306)
