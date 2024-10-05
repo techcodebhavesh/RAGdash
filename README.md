@@ -31,7 +31,7 @@ pip --version
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/RAGdash.git
+   git clone https://github.com/techcodebhavesh/RAGdash.git
    cd RAGdash
    ```
 
