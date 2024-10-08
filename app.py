@@ -59,7 +59,7 @@ else:
         
     st.dataframe(df, use_container_width=True)
 
-    code = rd.generate_plotly_code(question=my_question, sql=sql, df=df)
+    code = rd.generate_plotly_code(question=my_question, sql=sql, df=df,type_c="")
 
     fig = rd.get_plotly_figure(plotly_code=code, df=df)
 
