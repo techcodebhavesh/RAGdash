@@ -712,7 +712,7 @@ class RAGdashBase(ABC):
         return plotly_code
 
     def generate_plotly_code(
-        self, question: str = None, sql: str = None, df_metadata: str = None, **kwargs
+        self,type_c, question: str = None, sql: str = None, df_metadata: str = None, **kwargs
     ) -> str:
         if question is not None:
             system_msg = f"The following is a pandas DataFrame that contains the results of the query that answers the question the user asked: '{question}'"
@@ -727,7 +727,7 @@ class RAGdashBase(ABC):
         message_log = [
             self.system_message(system_msg),
             self.user_message(
-                "Can you generate the Python plotly code to chart the results of the dataframe? Assume the data is in a pandas dataframe called 'df'. If there is only one value in the dataframe, use an Indicator. Respond with only Python code. Do not answer with any explanations -- just the code."
+                f"Can you generate the Python plotly code to make {type_c} chart the results of the dataframe? Assume the data is in a pandas dataframe called 'df'. If there is only one value in the dataframe, use an Indicator. Respond with only Python code. Do not answer with any explanations -- just the code."
             ),
         ]
 

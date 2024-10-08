@@ -27,44 +27,19 @@ rd = MyRAGdash(config=config)
 
 rd.connect_to_mysql(host=config['db_host'], dbname=config['db_name'], user=config['db_user'], password=config['db_password'], port=3306)
 
-rd.train(ddl="""CREATE TABLE IF NOT EXISTS HRDataset (
-  Employee_Name VARCHAR(255),
-  EmpID INT,
-  MarriedID INT,
-  MaritalStatusID INT,
-  GenderID INT,
-  EmpStatusID INT,
-  DeptID INT,
-  PerfScoreID INT,
-  FromDiversityJobFairID INT,
-  Salary INT,
-  Termd INT,
-  PositionID INT,
-  Position VARCHAR(255),
-  State VARCHAR(255),
-  Zip INT,
-  DOB VARCHAR(255),
-  Sex VARCHAR(255),
-  MaritalDesc VARCHAR(255),
-  CitizenDesc VARCHAR(255),
-  HispanicLatino VARCHAR(255),
-  RaceDesc VARCHAR(255),
-  DateofHire VARCHAR(255),
-  DateofTermination VARCHAR(255),
-  TermReason VARCHAR(255),
-  EmploymentStatus VARCHAR(255),
-  Department VARCHAR(255),
-  ManagerName VARCHAR(255),
-  ManagerID INT,
-  RecruitmentSource VARCHAR(255),
-  PerformanceScore VARCHAR(255),
-  EngagementSurvey FLOAT,
-  EmpSatisfaction INT,
-  SpecialProjectsCount INT,
-  LastPerformanceReview_Date VARCHAR(255),
-  DaysLateLast30 INT,
-  Absences INT
-);""")
+# rd.train(ddl="""CREATE TABLE Employees (
+#     EmployeeID INT PRIMARY KEY,
+#     FirstName VARCHAR(50),
+#     LastName VARCHAR(50),
+#     Email VARCHAR(100),
+#     Phone VARCHAR(15),
+#     HireDate DATE,
+#     JobTitle VARCHAR(50),
+#     Salary DECIMAL(10, 2),
+#     Department VARCHAR(50)
+
+
+# );""")
 
 my_question = st.session_state.get("my_question", default=None)
 
