@@ -1,6 +1,6 @@
 from ragdash.chromadb import ChromaDB_VectorStore
 from ragdash.groq import Groq
-from ragdash.exceptions import ValidationError  # Make sure this is correctly imported
+from ragdash.exceptions import ValidationError  
 import os
 import streamlit as st
 from dotenv import load_dotenv
@@ -32,14 +32,8 @@ except Exception as e:
     st.error(f"Error connecting to the database: {e}")
     st.stop()
 
-# Fix the SQL query (ensure it follows MySQL's GROUP BY rules)
-sql = """
-SELECT MIN(HireDate) AS HireDate, HireYear, COUNT(EmployeeID) AS EmployeeCount
-FROM Employees
-GROUP BY HireYear;
-"""
 
-# Define questions for each chart type
+# data ka extarction
 my_questions = {
     "bar": "extract the data appropriate for bar chart",
     "pie": "extract the data appropriate for pie chart",
@@ -47,7 +41,7 @@ my_questions = {
     "scatter": "extract the data appropriate for scatter chart"
 }
 
-# Initialize an empty dictionary to store the DataFrames and codes
+
 results = {}
 
 # Generate SQL queries and DataFrames for each chart type with error handling
