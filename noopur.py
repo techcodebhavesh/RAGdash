@@ -87,10 +87,10 @@ def dashboard():
     # Create chart elements using Gradio's Row and Column for layout
     chart_elements = []
 
-    for i in range(0, len(charts), 2):
+    for i in range(0, len(charts)-2, 2):
         with gr.Row():
             # Add two charts side by side in one row, if available
-            for j in range(2):
+            for j in range(3):
                 if i + j < len(charts):
                     title, fig = charts[i + j]
                     if isinstance(fig, str):
