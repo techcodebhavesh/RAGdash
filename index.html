@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charts</title>
-    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
-</head>
-<body>
-    <h1>Dynamic Charts</h1>
-    <script>
-        // Include the fetchChartData function here
-        async function fetchChartData() {
-            try {
-                const response = await fetch('http://127.0.0.1:5000/charts');
-                const data = await response.json();
-                console.log(data);
-
-                for (const [chartType, result] of Object.entries(data)) {
-                    if (result.plotly_code) {
-                        // Create a div element for each chart and append it to the DOM
-                        const chartDiv = document.createElement('div');
-                        chartDiv.id = `${chartType}-chart`;
-                        document.body.appendChild(chartDiv);
-
-                        // Execute the Plotly code to render the chart
-                        new Function(result.plotly_code)();
-                    } else if (result.error) {
-                        console.error(`Error for ${chartType}: ${result.error}`);
-                    }
-                }
-            } catch (error) {
-                console.error('Error fetching chart data:', error);
-            }
+    <title>My Gradio Dashboard</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
         }
 
-        // Call the function to fetch chart data
-        fetchChartData();
-    </script>
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        #header {
+            background-color: #4CAF50;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div id="header">
+        Welcome to My Gradio Dashboard
+    </div>
+
+    <!-- Embed Gradio app using iframe -->
+    <iframe src="http://localhost:7860/" frameborder="0"></iframe>
+
 </body>
 </html>
