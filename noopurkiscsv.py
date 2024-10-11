@@ -35,7 +35,7 @@ df_i = pd.read_csv(csv_path)
 
 
 client = qqqq(
-    api_key="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",
+    api_key="bvhgkml",
 )
 
 info=df_i.dtypes.astype(str)
