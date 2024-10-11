@@ -29,7 +29,7 @@ print(config)
 rd = MyRAGdash(config=config)
 
 # Read CSV file
-csv_path = 'd:/downloadsD/Shopping Mall Customer Segmentation Data .csv'  # Path to your CSV file
+csv_path = 'F:/Mayur/vit/innov8ors/ollama/AutoDash/Sample_CSVs/dairy_dataset.csv'  # Path to your CSV file
 df_i = pd.read_csv(csv_path)
 
 
@@ -44,7 +44,7 @@ csv_description_prompt = f"""
 I have a CSV file with the following description:
 {info}
 
-Consider the CSV is read before in a DataFrame df_i. Can you generate the Python  code to extract and return dataframe df to make a bar chart? Assume the data is in a pandas dataframe called 'df_i'.Do not plot the graph, just extract the dataframe df and return it. Respond with only Python code. Do not answer with any explanations -- just the code.
+Consider the CSV is read before in a DataFrame df_i. Can you generate the Python  code to extract and store dataframe df to make a bar chart? Assume the data is in a pandas dataframe called 'df_i'.Do not plot the graph, just extract the dataframe df and store it. Respond with only Python code. Do not answer with any explanations -- just the code.
 """
 
 # Send the prompt to the Groq API
@@ -52,7 +52,7 @@ chat_completion = client.chat.completions.create(
     messages=[
         {
             "role": "system", 
-            "content": "You are an python expert. Please help me generate a python code to extract and return dataframe df needed to make a bar chart.Your response should ONLY be based on the given context and follow the response guidelines and format instructions.",
+            "content": "You are an python expert. Please help me generate a python code to extract and store dataframe df needed to make a bar chart.Your response should ONLY be based on the given context and follow the response guidelines and format instructions.",
         },
         {
             "role": "user",
@@ -71,8 +71,20 @@ dfs = {
         0: df_i  # Use df read from the CSV
     }
 
-df=exec(cleaned_response,dfs)
+dirname = os.path.dirname(__file__)
 
+execution_context = {"pd": pd, "df_i": df_i, **dfs}
+
+exec_context = execution_context.copy()
+exec_context['dirname'] = dirname  # Include dirname in the context
+exec_context.update(dfs)  # Include dfs in the context
+
+exec(cleaned_response,exec_context)
+df = exec_context.get('df', None)
+
+print("df")
+print(df)
+print("df")
 # Now use the extracted DataFrame code to get the chart generation code
 # Prepare a new prompt to get the Plotly code
 
