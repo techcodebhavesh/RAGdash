@@ -89,6 +89,46 @@ class RAGdashBase(ABC):
 
         return f"Respond in the {self.language} language."
 
+    def sanitize_python_code(self, python_code: str) -> str:
+      # Sanitize if necessary
+      return python_code
+
+    def extract_python_code(self, markdown_string: str) -> str:
+        # Extract Python code from the markdown string
+        python_code = self._extract_python_code(markdown_string)
+
+        # Sanitize the Python code
+        sanitized_code = self.sanitize_python_code(python_code)
+
+        return sanitized_code
+
+    def generate_python(self, df: pd.DataFrame, type_c: str, allow_llm_to_see_data=False, **kwargs) -> str:
+        info=df.head()
+
+        csv_description_prompt = f"""
+        I have a CSV file with the following description:
+        {info}
+
+        Consider the CSV is read before in a DataFrame df. Can you generate the Python  code to extract and store dataframe df to make a {type_c} chart? Assume the data is in a pandas dataframe called 'df'.Do not plot the graph, just extract the dataframe df and store it. Respond with only Python code. Do not answer with any explanations -- just the code.
+        """
+
+        prompt = [
+          self.system_message(f"You are an python expert. Please help me generate a python code to extract and store dataframe df needed to make a {type_c} chart.Your response should ONLY be based on the given context and follow the response guidelines and format instructions."),
+          self.user_message(csv_description_prompt),
+        ]
+
+        llm_output = self.submit_prompt(prompt=prompt, **kwargs)
+
+        return self.extract_python_code(llm_output)
+
+    def extract_dataframe(self, python_code: str, df: pd.DataFrame, **kwargs) -> any:
+        exec_context = {"pd": pd, "df": df, **kwargs.get("exec_context", {})}
+        try:
+          exec(python_code, globals(), exec_context)
+          return exec_context.get('df', df)
+        except Exception as e:
+          return f"Error occurred: {str(e)}"
+
     def generate_sql(self, question: str, allow_llm_to_see_data=False, **kwargs) -> str:
         """
         Example:
