@@ -767,7 +767,7 @@ class RAGdashBase(ABC):
         message_log = [
             self.system_message(system_msg),
             self.user_message(
-                f"Can you generate the Python plotly code to make {type_c} chart the results of the dataframe? Assume the data is in a pandas dataframe called 'df'. If there is only one value in the dataframe, use an Indicator. Respond with only Python code. Do not answer with any explanations -- just the code."
+                f"Can you generate the Python plotly code to make {type_c} chart the results of the dataframe? Assume the data is in a pandas dataframe called 'df'. Use beautiful colors. If there is only one value in the dataframe, use an Indicator. Respond with only Python code. Do not answer with any explanations -- just the code."
             ),
         ]
 
